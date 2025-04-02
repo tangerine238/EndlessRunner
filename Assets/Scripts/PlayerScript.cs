@@ -4,7 +4,6 @@ using TMPro;
 public class PlayerScript : MonoBehaviour
 {
 
-
     float score;
 
     bool isAlive = true;
@@ -12,12 +11,18 @@ public class PlayerScript : MonoBehaviour
     Rigidbody2D RB;
 
     public TextMeshProUGUI ScoreText;
+    public TextMeshProUGUI FinalScore;
+    public static PlayerScript Instance { get; private set; }
+
+    public GameObject gameOverScreen;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         RB = GetComponent<Rigidbody2D>();
         score = 0;
+        Instance = this;
+        gameOverScreen.SetActive(false);
     }
 
     // Update is called once per frame
@@ -39,9 +44,22 @@ public class PlayerScript : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("obstacle"))
         {
-
+            ShowGameOver();
             isAlive = false;
             Time.timeScale = 0;
         }
     }
+
+    public float GetScore()
+    {
+        return score;
+    }
+
+    private void ShowGameOver()
+    {
+        FinalScore.text = "Final Score: " + score.ToString("F");
+        gameOverScreen.SetActive(true);
+    }
+
+
 }
