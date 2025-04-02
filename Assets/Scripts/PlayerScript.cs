@@ -4,10 +4,9 @@ using TMPro;
 public class PlayerScript : MonoBehaviour
 {
 
-    public float JumpForce;
+
     float score;
 
-    [SerializeField] bool isGrounded = false;
     bool isAlive = true;
 
     Rigidbody2D RB;
@@ -26,11 +25,7 @@ public class PlayerScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (isGrounded)
-            {
-                RB.AddForce(Vector2.up * JumpForce);
-                isGrounded = false;
-            }
+            GetComponent<Rigidbody2D>().gravityScale *= -1;
         }
 
         if (isAlive)
@@ -42,13 +37,6 @@ public class PlayerScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("ground"))
-        {
-            if (isGrounded == false)
-            {
-                isGrounded = true;
-            }
-        }
         if (collision.gameObject.CompareTag("obstacle"))
         {
 

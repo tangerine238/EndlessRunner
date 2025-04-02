@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ground
   - nextLine
+  - obstacle
   layers:
   - Default
   - TransparentFX
